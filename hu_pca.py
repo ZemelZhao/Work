@@ -10,7 +10,7 @@ def td(data):
     data = np.array(data)
     cache = []
     cache.append(np.mean(np.fabs(data)))
-    cache.append(np.var(data))
+    cache.append(np.sum(np.fabs(data[1:] - data[:-1])))
     cache.append(np.sum(data[1:]*data[:-1] < 0))
     cache.append(np.sum((data[:-2] - data[1:-1])*(data[1:-1] - data[2:])>=0))
     return np.array(cache)
