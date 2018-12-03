@@ -15,12 +15,13 @@ def td(data):
     cache.append(np.sum((data[:-2] - data[1:-1])*(data[1:-1] - data[2:])>=0))
     return np.array(cache)
 
-for _ in [0, 1, 3, 4]:
+for _ in [0, 5, 3, 4]:
 
     data_file = os.path.join('emgdata', '%i.csv' %_)
 
-    for i in range(0, 7, 2):
+    for i in range(0, 8, 1):
         data_cache = []
+        feat_td = np.array([])
         reader = csv.reader(open(data_file))
         for row in reader:
             data_cache.append(float(row[i]))
