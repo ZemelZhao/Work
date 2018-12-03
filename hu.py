@@ -1,14 +1,36 @@
 import numpy as np
 import csv
-from statsmodels.tsa.arima_model import ARMA, ARIMA
+import pandas as pd
+import statsmodels.api as sm
+from statsmodels.graphics.api import qqplot
 import os
+
+
+def td(data):
+    data = np.array(data)
+    cache = []
+    cache.append(np.mean(np.fabs(data)))
+    cache.append(np.var(data))
+    cache.append(np.sum(data[1:]*data[:-1] < 0))
+    cache.append(np.sum((data[:-2] - data[1:-1])*(data[1:-1] - data[2:])>=0))
+    return np.array(cache)
 
 data_file = os.path.join('emgdata', '0.csv')
 
-reader = csv.reader(open(data_file))
-data_cache = []
-for row in reader:
-    data_cache.append(float(row[0]))
+for i in range(0, 7, 2):
+    data_cache = []
+    reader = csv.reader(open(data_file))
+    for row in reader:
+        data_cache.append(float(row[i]))
+    data_cache = data_cache[1000: -1000]
+    feat_td_temp = np.array([0, 0, 0, 0])
+    for j in range(0, 2900, 100):
+        data_temp = data_cache[j : j + 100]
+        feat_td_temp = np.vstack((feat_td_temp, td(data_temp)))
+    try:
+        feat_td = np.hstack((feat_td, feat_td_temp))
+    except:
+        feat_td = feat_td_temp
 
-data_cache = data_cache[1000: -1000]
+np.save('feat_td0.npy', feat_td)
 
