@@ -25,6 +25,7 @@ def feat_extra(data,useAR = True):
         data_result.append(np.sum(data[1:]*data[:-1]<0))
         data_result.append(np.sum((data[:-2]-data[1:-1])*(data[1:-1]-data[2:])>=0))
         return data_result
+
     def feat_ARBurg(data):
         ret = 8*[0.0]
         res = ret[:]
@@ -36,11 +37,11 @@ def feat_extra(data,useAR = True):
             sumd = 0.0
             mat = matall[:,i-1:]
             matold = mat.copy()
-            
+
             sumn = mat[0,1:].dot(mat[1,:-1].T)
             sumd = mat[0,1:].dot(mat[0,1:].T)+mat[1,:-1].dot(mat[1,:-1].T)
             garma = -2*sumn/sumd
-            
+
             for j in range(1,i+1):
                 res[j] = ret[j]+garma*ret[i-j]
             ret = res[:]
@@ -48,6 +49,7 @@ def feat_extra(data,useAR = True):
             mat[0,1:] = mat[0,1:] + garma*matold[1,:-1]
             matall[:,i-1:] = mat
         return res[1:]
+
     allChannels = np.array(data.copy()).T
     fea = []
     for channel in allChannels:
@@ -60,7 +62,7 @@ def PreProcessDataMap(rawData,featExtraFunc,winLength,winIncrement):
     start = time.clock()
     features = []
     labels = []
-    
+
     index = 0
     while index+winLength < len(rawData):
         if rawData.iloc[index,-1] != rawData.iloc[index+winLength,-1]:
@@ -70,7 +72,7 @@ def PreProcessDataMap(rawData,featExtraFunc,winLength,winIncrement):
             features.append(oneFeature)
             labels.append(rawData.iloc[int(index+winLength/2),-1])
             index += winIncrement
-    
+
     elapsed = (time.clock() - start)
     print("Time used:",elapsed)
     return features,labels
@@ -82,13 +84,13 @@ def load_data(fealabelDict,trainDataFactor,uniSampling=True):
     test_y = []
     if uniSampling:
         sampleNum = min([len(value) for value in fealabelDict.values()])
-        trainNum = int(sampleNum*trainDataFactor)        
+        trainNum = int(sampleNum*trainDataFactor)
         for label,feature in fealabelDict.items():
             random.shuffle(feature)
             train_x.extend(feature[:trainNum])
             train_y.extend([label]*trainNum)
             test_x.extend(feature[trainNum:sampleNum])
-            test_y.extend([label]*(sampleNum-trainNum))  
+            test_y.extend([label]*(sampleNum-trainNum))
     else:
         for label,feature in fealabelDict.items():
             random.shuffle(feature)
@@ -117,4 +119,4 @@ if __name__ == '__main__':
     (train_x,train_y),(test_x,test_y) = load_data(fealabelMapDict,0.7,True)
     print("train_x len: {0}\ntrain_y len: {1}\ntest_x len: {2}\ntrain_x len: {3}\n".format(len(train_x),len(train_y),len(test_x),len(test_y)))
 
-    
+
