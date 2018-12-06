@@ -17,7 +17,7 @@ max_num_y = max(max(np.abs(data[:, b])),
                 max(np.abs(data[:, b+4*c])),
                 max(np.abs(data[:, b+8*c])),
                 max(np.abs(data[:, b+12*c])))
-plt.scatter(data[:, a]/max_num_x, data[:, b]/max_num_y, c='', marker='o', edgecolor='g', label='   ')
+plt.scatter(data[:, a]/max_num_x, data[:, b]/max_num_y, c='', marker='o', edgecolor='g', label=u"握拳")
 plt.scatter(data[:, a+4*c]/max_num_x, data[:, b+4*c]/max_num_y, c='', marker='o', edgecolor='r', label='   ')
 plt.scatter(data[:, a+8*c]/max_num_x, data[:, b+8*c]/max_num_y, c='', marker='o',edgecolor='darkviolet', label='  ')
 plt.scatter(data[:, a+12*c]/max_num_x, data[:, b+12*c]/max_num_y, c='', marker='o', edgecolor='b', label='   ')
