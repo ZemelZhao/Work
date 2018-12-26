@@ -41,13 +41,17 @@ class LinkedListSingly(object):
             raise IndexError('list index out of range')
         else:
             node = self.head_node.next
+            temp = node.data
             self.length -= 1
             if loc == 0:
                 self.head_node.next = node.next
             else:
                 for i in range(loc-1):
                     node = node.next
+                    temp = node.data
                 node.next = node.next.next
+        return temp
+
 
     def search(self, loc=None):
         if loc == None:

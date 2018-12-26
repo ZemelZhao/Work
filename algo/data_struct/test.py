@@ -1,5 +1,8 @@
-from linked_list import *
+from linked_list import LinkedListSingly, LinkedListDoubly
+from stack import Stack
+from queue import Queue
 
+print('LindedListSingly Test')
 lls = LinkedListSingly()
 lls.insert(1)
 lls.insert(2)
@@ -10,7 +13,9 @@ lls.show()
 lls.delete()
 lls.show()
 print(lls.search(2))
+print()
 
+print('LindedListDoubly Test')
 lld = LinkedListDoubly()
 lld.insert(1)
 lld.insert(2)
@@ -21,4 +26,20 @@ lld.show()
 lld.delete()
 lld.show()
 print(lld.search(2))
+print()
 
+print('Stack Test')
+st = Stack(2)
+st.push(2)
+st.push(5)
+print(st.pop())
+print(st.pop())
+print()
+
+print('Queue Test')
+qu = Queue(2)
+qu.enqueue(2)
+qu.enqueue(5)
+print(qu.dequeue())
+print(qu.dequeue())
+print()
