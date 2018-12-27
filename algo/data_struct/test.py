@@ -1,7 +1,7 @@
 from linked_list import LinkedListSingly, LinkedListDoubly
 from stack import Stack
 from queue import Queue
-from hashmap import HashDirectAddress, HashChained
+from hashmap import HashDirectAddress, HashChained, HashOpenAddress
 
 print('LindedListSingly Test')
 lls = LinkedListSingly()
@@ -61,5 +61,15 @@ hc[12] = 8
 print(hc[8])
 print(hc[12])
 hc.delete(2)
+print()
+
+print('Hash OpenAddress Test')
+ho = HashOpenAddress(1)
+ho[4] = 3
+ho[381] = 16
+ho[12] = 8
+print(ho[4])
+print(ho[381])
+print(ho[12])
 print()
 
