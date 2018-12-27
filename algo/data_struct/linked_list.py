@@ -14,6 +14,8 @@ class NodeDoubly(object):
 class LinkedListSingly(object):
     def __init__(self):
         self.head_node = NodeSingly(None)
+        self.tail_node = NodeSingly(None)
+        self.head_node.next = self.tail_node
         self.length = 0
 
     def insert(self, data, loc=None):
@@ -51,7 +53,6 @@ class LinkedListSingly(object):
                     temp = node.data
                 node.next = node.next.next
         return temp
-
 
     def search(self, loc=None):
         if loc == None:
