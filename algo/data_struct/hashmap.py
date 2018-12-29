@@ -194,4 +194,57 @@ class HashOpenAddress(object):
 
 class HashPerfect(object):
     def __init__(self):
-        pass
+        self.cache_temp = []
+
+    def insert(self, node):
+        self.cache_temp.append(node)
+
+    def init(self):
+        num_slot = len(self.cache_temp)
+        cache_prime = [2]
+        for i in range(3, num_slot*num_slot, 2):
+            for j in cache_prime:
+                if j*j > i:
+                    cache_prime.append(i)
+                    break
+                elif i % j == 0:
+                    break
+                else:
+                    pass
+        for i in range(len(cache_prime)):
+            if cache_prime[i] > num_slot*math.sqrt(num_slot):
+                break
+        cache_prime = cache_prime[i:]
+        self.cache = [[None for i in range(num_slot)] for i in range(num_slot)]
+
+        while True:
+            judge = True
+            self.hash_func_t =  [random.randint(1, 100), random.randint(1, 20), cache_prime[random.randint(0, len(cache_prime)-1)], num_slot]
+            self.hash_func_l =  [random.randint(1, 100), random.randint(1, 20), cache_prime[random.randint(0, len(cache_prime)-1)], num_slot]
+            for i in self.cache_temp:
+                t = self.__hash_function_universal(i.key, self.hash_func_t)
+                l = self.__hash_function_universal(i.key, self.hash_func_l)
+                if self.cache[t][l] == None:
+                    self.cache[t][l] = i
+                else:
+                    judge = False
+                    break
+            if judge:
+                break
+
+    def search(self, key):
+        t = self.__hash_function_universal(key, self.hash_func_t)
+        l = self.__hash_function_universal(key, self.hash_func_l)
+        return self.cache[t][l].data
+
+    def __hash_function_universal(self, key, cmap):
+        return ((cmap[0]*key + cmap[1]) % cmap[2]) % cmap[3]
+
+    def __setitem__(self, *args):
+        node = HashNode(args[0], args[1])
+        self.insert(node)
+
+    def __getitem__(self, *args):
+        return self.search(args[0])
+
+

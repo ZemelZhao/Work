@@ -1,7 +1,7 @@
 from linked_list import LinkedListSingly, LinkedListDoubly
 from stack import Stack
 from queue import Queue
-from hashmap import HashDirectAddress, HashChained, HashOpenAddress
+from hashmap import HashDirectAddress, HashChained, HashOpenAddress, HashPerfect
 
 print('LindedListSingly Test')
 lls = LinkedListSingly()
@@ -73,3 +73,18 @@ print(ho[381])
 print(ho[12])
 print()
 
+print('Hash Perfect Test')
+hp = HashPerfect()
+hp[10] = 10*2
+hp[22] = 22*2
+hp[37] = 37*2
+hp[40] = 40*2
+hp[52] = 52*2
+hp[60] = 60*2
+hp[70] = 70*2
+hp[72] = 72*2
+hp[75] = 75*2
+hp.init()
+print(hp[10])
+print(hp[75])
+print(hp[22])
