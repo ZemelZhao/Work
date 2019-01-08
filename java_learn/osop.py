@@ -2,8 +2,8 @@ import os
 import re
 
 if __name__ == '__main__':
-    a = os.listdir('.')
-    for i in a:
-        num = i.index('.')
-        if i[num+1:] == 'class' or i[num+1:] == 'java':
-            os.remove(i)
+    a = int(input('Dir').strip())
+    os.mkdir('%d' % a)
+    os.system('touch %d/Solution.java' % a)
+    os.system('touch %d/README.md' % a)
+
