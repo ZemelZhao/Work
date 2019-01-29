@@ -24,4 +24,5 @@
 | 944  | [Delete Columns to Make Sorted](https://leetcode.com/problems/delete-columns-to-make-sorted) | [Content](https://github.com/ZemelZhao/Work/blob/master/java_learn/944/README.md) | [Java](https://github.com/ZemelZhao/Work/blob/master/java_learn/944/Solution.java) |   Easy   |
 | 961  | [N-Repeated Element in Size 2N Array](https://leetcode.com/problems/n-repeated-element-in-size-2n-array) | [Content](https://github.com/ZemelZhao/Work/blob/master/java_learn/961/README.md) | [Java](https://github.com/ZemelZhao/Work/blob/master/java_learn/961/Solution.java) |   Easy   |
 | 965  | [Univalued Binary Tree](https://leetcode.com/problems/univalued-binary-tree) | [Content](https://github.com/ZemelZhao/Work/blob/master/java_learn/965/README.md) | [Java](https://github.com/ZemelZhao/Work/blob/master/java_learn/965/Solution.java) |   Easy   |
+| 977  | [Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array) | [Content](https://github.com/ZemelZhao/Work/blob/master/java_learn/977/README.md) | [Java](https://github.com/ZemelZhao/Work/blob/master/java_learn/977/Solution.java) |   Easy   |
 
