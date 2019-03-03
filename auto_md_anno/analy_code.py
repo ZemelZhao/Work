@@ -3,6 +3,7 @@ import linecache
 import hashlib
 import numpy as np
 import pickle
+import sys
 
 class AnalyCode(object):
     def __init__(self):
@@ -88,7 +89,7 @@ class AnalyCode(object):
         return doc_name, dic_res
 
     def read_class(self, data):
-        dic_res = {'hash_code': 0, 'inherit':[], 'func':{}}
+        dic_res = {'hash_code': 0, 'superclass':[], 'func':{}}
         cache_class_code_head = ''
         dic_res['hash_code'] = self.hash_list(data)
         for i in range(len(data)):
@@ -107,7 +108,7 @@ class AnalyCode(object):
         else:
             class_name = cache_class_code_head[6: -1].strip()
             cache_class_inherit = ['object']
-        dic_res['inherit'] = cache_class_inherit
+        dic_res['superclass'] = cache_class_inherit
         cache_code = []
         for i in range(len(data_code)):
             code_line = data_code[i]
@@ -177,21 +178,27 @@ class AnalyCode(object):
         return data_code_res
 
     def read_files(self, list_file, dir_name='.'):
-        dic_res = {}
+        dic_res = {'hash_code': 0, 'file': {}}
+        hash_temp = ''
         for i in sorted(list_file):
             name_file, dic_file = self.read_doc(os.path.join(self.prog_address, dir_name, i))
-            dic_res[name_file] = dic_file
+            dic_res['file'][name_file] = dic_file
+            hash_temp += dic_file['hash_code'][0]
+        dic_res['hash_code'] = self.hash_system(dic_res)
         return dic_res
+
 
     def run(self, address):
         self.address = address
         self.prog_address = os.path.join(os.getcwd(), address)
         self.prog_file_system = self.get_prog_file_system()
-        dic_res = {'name': address, 'files': {}, 'dirs': {}}
+        dic_res = {'name': address, 'hash_code': 0, 'files': {'hash_code': 0, 'file': {}}, 'dirs': {'hash_code': 0, 'dir': {}}}
         list_file_1_dir = self.prog_file_system['files']
         dic_res['files'] = self.read_files(list_file_1_dir)
         for i in self.prog_file_system['dirs']:
-            dic_res['dirs'][i] = self.read_files(self.prog_file_system['dirs'][i], i)
+            dic_res['dirs']['dir'][i] = self.read_files(self.prog_file_system['dirs'][i], i)
+            dic_res['dirs']['hash_code'] = self.hash_system(dic_res['dirs'])
+        dic_res['hash_code'] = self.hash_system((dic_res))
         return dic_res
 
     def find_all_element_uncross(self, cache, data):
@@ -344,8 +351,21 @@ class AnalyCode(object):
         res =  hashlib.sha1(res.encode('utf8'))
         return res.hexdigest()
 
+    def hash_system(self, dic):
+        res = ''
+        for i in dic:
+            try:
+                res += dic[i]['hash_code']
+            except:
+                pass
+        res = hashlib.sha1(res.encode('utf8'))
+        return res.hexdigest()
+
+
 if __name__ == '__main__':
     ana = AnalyCode()
     dic_res = ana.run('test_dir')
+    pickle.dump(dic_res, open('db', 'wb'))
+    print("===================")
     print(dic_res)
 
