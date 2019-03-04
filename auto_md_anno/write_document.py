@@ -25,7 +25,7 @@ class WriteDocument:
             res_str += '__文件__\n'
             res_str += self.make_table_file_intro(dic_files)
             res_str += '__文件夹__\n'
-            res_str += self.make_table_dir_intro(dic_dirs)
+            res_str += self.make_table_dir_intro(dic_dirs, len(dic_files))
             judge = True
         if judge:
             return res_str
@@ -50,50 +50,53 @@ class WriteDocument:
         else:
             return ''
 
-    def make_table_dir_intro(self, dic):
+    def make_table_dir_intro(self, dic, order=0):
         judge = False
         res_str = ''
         res_str += '|No.|DirName|FileNum|Note|\n'
         res_str += '|:-:'*4 + '|\n'
         list_dir = sorted(dic.keys())
         for i in range(len(list_dir)):
+            order += 1
             judge = True
             index = i + 1
             dir_name = list_dir[i]
             note = ''
             num_file = len(dic[list_dir[i]])
-            res_str += '|%d|%s|%d|%s|\n' % (index, self.fix_markdown_str(dir_name), num_file, note)
+            res_str += '|%d|%s|%d|%s|\n' % (index, self.make_markdown_link(self.fix_markdown_str(dir_name), order), num_file, note)
         if judge:
             return res_str
         else:
             return ''
 
-    def make_table_file_intro(self, dic):
+    def make_table_file_intro(self, dic, order=0):
         judge = False
         res_str = ''
         res_str += '|No.|FileName|ClassNum|FuncNum|Note|\n'
         res_str += '|:-:'*5 + '|\n'
         list_file = sorted(dic.keys())
         for i in range(len(list_file)):
+            order += 1
             judge = True
             index = i + 1
             file_name = list_file[i]
             note = ''
             num_class = len(dic[list_file[i]]['class'])
             num_func = len(dic[list_file[i]]['func'])
-            res_str += '|%d|%s|%d|%d|%s|\n' % (index, self.fix_markdown_str(file_name), num_class, num_func, note)
+            res_str += '|%d|%s|%d|%d|%s|\n' % (index, self.make_markdown_link(self.fix_markdown_str(file_name), order), num_class, num_func, note)
         if judge:
             return res_str
         else:
             return ''
 
-    def make_table_class_intro(self, dic):
+    def make_table_class_intro(self, dic, order=0):
         judge = False
         res_str = ''
         res_str += '|No.|ClassName|SuperClass|FuncNum|Note|\n'
         res_str += '|:-:'*5 + '|\n'
         list_dir = sorted(dic.keys())
         for i in range(len(list_dir)):
+            order += 1
             judge = True
             index = i + 1
             class_name = list_dir[i]
@@ -103,27 +106,32 @@ class WriteDocument:
             super_class = super_class[:-1]
             note = ''
             num_func = len(dic[list_dir[i]]['func'])
-            res_str += '|%d|%s|%s|%d|%s|\n' % (index, self.fix_markdown_str(class_name), self.fix_markdown_str(super_class), num_func, note)
+            res_str += '|%d|%s|%s|%d|%s|\n' % (index, self.make_markdown_link(self.fix_markdown_str(class_name), order), self.fix_markdown_str(super_class), num_func, note)
         if judge:
             return res_str
         else:
             return ''
 
-    def make_table_func_intro(self, dic):
+    def make_table_func_intro(self, dic, order=0):
         judge = False
         res_str = ''
         res_str += '|No.|FuncName|InputNum|OutputBool|DecorNum|Note|\n'
         res_str += '|:-:'*6 + '|\n'
         list_dir = sorted(dic.keys())
         for i in range(len(list_dir)):
+            order += 1
             judge = True
             index = i + 1
             func_name = list_dir[i]
             num_decorator = len(dic[list_dir[i]]['decorator'])
             note = ''
             num_input = len(dic[list_dir[i]]['input'])
-            bool_output = str(bool(dic[list_dir[i]]['output']))
-            res_str += '|%d|%s|%d|%s|%d|%s|\n' % (index, self.fix_markdown_str(func_name), num_input, bool_output, num_decorator, note)
+            num_output = dic[list_dir[i]]['output']
+            bool_output = str(bool(num_output))
+            if num_decorator + num_input + num_output > 0:
+                res_str += '|%d|%s|%d|%s|%d|%s|\n' % (index, self.make_markdown_link(self.fix_markdown_str(func_name), order), num_input, bool_output, num_decorator, note)
+            else:
+                res_str += '|%d|%s|%d|%s|%d|%s|\n' % (index, self.fix_markdown_str(func_name), num_input, bool_output, num_decorator, note)
         if judge:
             return res_str
         else:
@@ -216,7 +224,7 @@ class WriteDocument:
     def make_section_class(self, dic, name, lv, order):
         res_str = ''
         dic_func = dic['func']
-        res_str += '#'*lv + ' %d. %s   (CLASS)\n' % (order, self.fix_markdown_str(name))
+        res_str += '#'*lv + ' %d. %s\n' % (order, self.fix_markdown_str(name))
         res_str += self.make_table_func_intro(dic['func'])
         list_func = sorted(dic_func)
         order = 1
@@ -251,7 +259,11 @@ class WriteDocument:
                 res_str += i
         return res_str
 
+    def make_markdown_link(self, data, order, name_type=False):
+        if not name_type:
+            res_str = '[%s](#%d. %s)' % (data, order, data)
+        return res_str
 
-if __name__ == '__main__':
+if  __name__ == '__main__':
     a = WriteDocument()
     a.run(pickle.load(open('db', 'rb')))

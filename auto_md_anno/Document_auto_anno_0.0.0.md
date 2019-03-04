@@ -7,39 +7,39 @@
 __文件__
 |No.|FileName|ClassNum|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|analy\_code.py|1|0||
-|2|auto\_anno.py|0|0||
-|3|ver\_control.py|1|0||
-|4|write\_document.py|1|0||
+|1|[analy\_code.py](#1. analy\_code.py)|1|0||
+|2|[auto\_anno.py](#2. auto\_anno.py)|0|0||
+|3|[ver\_control.py](#3. ver\_control.py)|1|0||
+|4|[write\_document.py](#4. write\_document.py)|1|0||
 __文件夹__
 |No.|DirName|FileNum|Note|
 |:-:|:-:|:-:|:-:|
-|1|test\_dir|2||
-|2|test\_dir/hello|2||
-|3|test\_dir/hello1|2||
+|1|[test\_dir](#5. test\_dir)|2||
+|2|[test\_dir/hello](#6. test\_dir/hello)|2||
+|3|[test\_dir/hello1](#7. test\_dir/hello1)|2||
 ## 1. analy\_code.py
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|AnalyCode||15||
-### 1. AnalyCode   (CLASS)
+|1|[AnalyCode](#1. AnalyCode)||15||
+### 1. AnalyCode
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |1|\_\_init\_\_|0|False|0||
-|2|filter\_doc\_useless\_line|1|True|0||
-|3|filter\_multiline\_anno|1|True|0||
-|4|filter\_oneline\_anno|1|True|0||
-|5|filter\_redun\_space|1|True|0||
-|6|find\_all\_element\_uncross|2|True|0||
-|7|fix\_nonstandard\_line\_head|1|True|0||
-|8|get\_prog\_file\_system|0|True|0||
-|9|hash\_list|1|True|0||
-|10|hash\_system|1|True|0||
-|11|read\_class|1|True|0||
-|12|read\_doc|1|True|0||
-|13|read\_files|2|True|0||
-|14|read\_func|1|True|0||
-|15|run|1|True|0||
+|2|[filter\_doc\_useless\_line](#2. filter\_doc\_useless\_line)|1|True|0||
+|3|[filter\_multiline\_anno](#3. filter\_multiline\_anno)|1|True|0||
+|4|[filter\_oneline\_anno](#4. filter\_oneline\_anno)|1|True|0||
+|5|[filter\_redun\_space](#5. filter\_redun\_space)|1|True|0||
+|6|[find\_all\_element\_uncross](#6. find\_all\_element\_uncross)|2|True|0||
+|7|[fix\_nonstandard\_line\_head](#7. fix\_nonstandard\_line\_head)|1|True|0||
+|8|[get\_prog\_file\_system](#8. get\_prog\_file\_system)|0|True|0||
+|9|[hash\_list](#9. hash\_list)|1|True|0||
+|10|[hash\_system](#10. hash\_system)|1|True|0||
+|11|[read\_class](#11. read\_class)|1|True|0||
+|12|[read\_doc](#12. read\_doc)|1|True|0||
+|13|[read\_files](#13. read\_files)|2|True|0||
+|14|[read\_func](#14. read\_func)|1|True|0||
+|15|[run](#15. run)|1|True|0||
 #### 2. filter\_doc\_useless\_line
 __传入参数__
 |No.|InputName|Type|Note|
@@ -127,8 +127,8 @@ __传出参数__
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|VerControl|object|1||
-### 1. VerControl   (CLASS)
+|1|[VerControl](#1. VerControl)|object|1||
+### 1. VerControl
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |1|\_\_init\_\_|0|False|0||
@@ -136,27 +136,27 @@ __类__
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|WriteDocument|object|17||
-### 1. WriteDocument   (CLASS)
+|1|[WriteDocument](#1. WriteDocument)|object|17||
+### 1. WriteDocument
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |1|\_\_init\_\_|0|False|0||
-|2|fix\_markdown\_str|1|True|0||
-|3|make\_doc\_markdown|1|False|0||
-|4|make\_section\_all|2|True|0||
-|5|make\_section\_class|4|True|0||
-|6|make\_section\_dir|4|True|0||
-|7|make\_section\_flle|4|True|0||
-|8|make\_section\_func|4|True|0||
-|9|make\_table\_arg\_intro|1|True|0||
-|10|make\_table\_class\_intro|1|True|0||
-|11|make\_table\_decorator\_intro|1|True|0||
-|12|make\_table\_dir\_intro|1|True|0||
-|13|make\_table\_file\_intro|1|True|0||
-|14|make\_table\_func\_intro|1|True|0||
-|15|make\_table\_introduce\_all|1|True|0||
-|16|make\_table\_introduce\_file|1|True|0||
-|17|run|2|False|0||
+|2|[fix\_markdown\_str](#2. fix\_markdown\_str)|1|True|0||
+|3|[make\_doc\_markdown](#3. make\_doc\_markdown)|1|False|0||
+|4|[make\_section\_all](#4. make\_section\_all)|2|True|0||
+|5|[make\_section\_class](#5. make\_section\_class)|4|True|0||
+|6|[make\_section\_dir](#6. make\_section\_dir)|4|True|0||
+|7|[make\_section\_flle](#7. make\_section\_flle)|4|True|0||
+|8|[make\_section\_func](#8. make\_section\_func)|4|True|0||
+|9|[make\_table\_arg\_intro](#9. make\_table\_arg\_intro)|1|True|0||
+|10|[make\_table\_class\_intro](#10. make\_table\_class\_intro)|1|True|0||
+|11|[make\_table\_decorator\_intro](#11. make\_table\_decorator\_intro)|1|True|0||
+|12|[make\_table\_dir\_intro](#12. make\_table\_dir\_intro)|1|True|0||
+|13|[make\_table\_file\_intro](#13. make\_table\_file\_intro)|1|True|0||
+|14|[make\_table\_func\_intro](#14. make\_table\_func\_intro)|1|True|0||
+|15|[make\_table\_introduce\_all](#15. make\_table\_introduce\_all)|1|True|0||
+|16|[make\_table\_introduce\_file](#16. make\_table\_introduce\_file)|1|True|0||
+|17|[run](#17. run)|2|False|0||
 #### 2. fix\_markdown\_str
 __传入参数__
 |No.|InputName|Type|Note|
@@ -270,14 +270,14 @@ __传入参数__
 __函数__
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|bread|1|True|0||
-|2|here|5|False|0||
-|3|here\_s\_sf|0|True|1||
+|1|[bread](#1. bread)|1|True|0||
+|2|[here](#2. here)|5|False|0||
+|3|[here\_s\_sf](#3. here\_s\_sf)|0|True|1||
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|A|object|1||
-|2|HAHA|mp.Process|3||
+|1|[A](#1. A)|object|1||
+|2|[HAHA](#2. HAHA)|mp.Process|3||
 #### 1. bread
 __传入参数__
 |No.|InputName|Type|Note|
@@ -299,16 +299,16 @@ __修饰器__
 |:-:|:-:|:-:|
 |1|bread||
 __传出参数__
-#### 4. A   (CLASS)
+#### 4. A
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |1|\_\_init\_\_|0|False|0||
-#### 5. HAHA   (CLASS)
+#### 5. HAHA
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |1|\_\_init\_\_|0|False|0||
-|2|ha1|0|False|1||
-|3|initUI|1|False|0||
+|2|[ha1](#2. ha1)|0|False|1||
+|3|[initUI](#3. initUI)|1|False|0||
 ##### 2. ha1
 __修饰器__
 |No.|DecoratorName|Note|
@@ -323,14 +323,14 @@ __传入参数__
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|WindowGraphShow|QWidget|5||
-#### 1. WindowGraphShow   (CLASS)
+|1|[WindowGraphShow](#1. WindowGraphShow)|QWidget|5||
+#### 1. WindowGraphShow
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |1|\_\_init\_\_|0|False|0||
-|2|closeEvent|1|False|1||
-|3|initUI|0|False|1||
-|4|isClosed|0|True|1||
+|2|[closeEvent](#2. closeEvent)|1|False|1||
+|3|[initUI](#3. initUI)|0|False|1||
+|4|[isClosed](#4. isClosed)|0|True|1||
 |5|show|0|False|0||
 ##### 2. closeEvent
 __修饰器__
@@ -359,18 +359,18 @@ __传出参数__
 __函数__
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|main|0|True|0||
+|1|[main](#1. main)|0|True|0||
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|A|object|2||
+|1|[A](#1. A)|object|2||
 #### 1. main
 __传出参数__
-#### 2. A   (CLASS)
+#### 2. A
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|\_\_init\_\_|1|False|0||
-|2|run|1|False|0||
+|1|[\_\_init\_\_](#1. \_\_init\_\_)|1|False|0||
+|2|[run](#2. run)|1|False|0||
 ##### 1. \_\_init\_\_
 __传入参数__
 |No.|InputName|Type|Note|
