@@ -10,6 +10,6 @@ if __name__ == '__main__':
     version_control = VerControl()
     write_anno = WriteDocument()
 
-    dic_anno = analysis_code.run('auto_anno')
+    dic_anno = analysis_code.run('test_dir')
     pickle.dump(dic_anno, open('db', 'wb'))
     write_anno.run(dic_anno)

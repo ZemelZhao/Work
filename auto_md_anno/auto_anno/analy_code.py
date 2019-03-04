@@ -26,7 +26,7 @@ class AnalyCode(object):
                 self.cache_dir_system['files'] = files
             else:
                 dirs = root[len(self.prog_address)+1 :]
-                if dirs != '__pycache__' and dirs[0] != '.':
+                if dirs == '__pycache__' or dirs[0] != '.':
                     self.cache_dir_system['dirs'][dirs] = files
         return self.cache_dir_system
 
@@ -173,6 +173,14 @@ class AnalyCode(object):
                 dic_res['output'] = 1
         return func_name, dic_res
 
+    def filter_doc_useless_line(self, cache_code_data):
+        data_code_temp = cache_code_data[:]
+        data_code_temp = self.filter_oneline_anno(data_code_temp)
+        data_code_temp = self.filter_multiline_anno(data_code_temp)
+        data_code_temp = self.fix_nonstandard_line_head(data_code_temp)
+        data_code_res = self.filter_redun_space(data_code_temp)
+        return data_code_res
+
     def read_files(self, list_file, dir_name='.'):
         dic_res = {'hash_code': 0, 'file': {}}
         hash_temp = ''
@@ -183,13 +191,6 @@ class AnalyCode(object):
         dic_res['hash_code'] = self.hash_system(dic_res)
         return dic_res
 
-    def filter_doc_useless_line(self, cache_code_data):
-        data_code_temp = cache_code_data[:]
-        data_code_temp = self.filter_oneline_anno(data_code_temp)
-        data_code_temp = self.filter_multiline_anno(data_code_temp)
-        data_code_temp = self.fix_nonstandard_line_head(data_code_temp)
-        data_code_res = self.filter_redun_space(data_code_temp)
-        return data_code_res
 
     def run(self, address):
         self.address = address
@@ -381,7 +382,7 @@ class AnalyCode(object):
 
 if __name__ == '__main__':
     ana = AnalyCode()
-    dic_res = ana.run('auto_anno')
+    dic_res = ana.run('test_dir')
     print(dic_res)
     pickle.dump(dic_res, open('db', 'wb'))
     print('Done')
