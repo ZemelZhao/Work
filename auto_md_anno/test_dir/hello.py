@@ -7,10 +7,11 @@ import multiprocessing as mp
 '''
 '''
 # ha?
+sfsfsfsfsf
 
 def bread(func):
     def wrapper():
-        print('fuck')
+        print('fSucsk')
         func()
         print('haha')
     return wrapper

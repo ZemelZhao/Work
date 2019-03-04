@@ -43,7 +43,7 @@ class WriteDocument:
             judge = True
         if len(dic_class):
             res_str += '__类__\n'
-            res_str += self.make_table_class_intro(dic_class)
+            res_str += self.make_table_class_intro(dic_class, len(dic_func))
             judge = True
         if judge:
             return res_str
@@ -263,6 +263,11 @@ class WriteDocument:
         if not name_type:
             res_str = '[%s](#%d. %s)' % (data, order, data)
         return res_str
+
+
+class WriteUpdate:
+    def __init__(self):
+        pass
 
 if  __name__ == '__main__':
     a = WriteDocument()

@@ -1,4 +1,5 @@
 import os
+import haha
 
 def main():
 	here = 2
@@ -9,5 +10,11 @@ class A:
 		print(fuck)
 
 	def run(self, haha):
-		print('here')
+		print('herSe')
 
+	def p():
+		pass
+
+if __name__ == '__main__':
+	pass
+	p = p+1

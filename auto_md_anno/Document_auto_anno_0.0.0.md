@@ -276,8 +276,8 @@ __函数__
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|[A](#1. A)|object|1||
-|2|[HAHA](#2. HAHA)|mp.Process|3||
+|1|[A](#4. A)|object|1||
+|2|[HAHA](#5. HAHA)|mp.Process|3||
 #### 1. bread
 __传入参数__
 |No.|InputName|Type|Note|
@@ -363,7 +363,7 @@ __函数__
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|[A](#1. A)|object|2||
+|1|[A](#2. A)|object|2||
 #### 1. main
 __传出参数__
 #### 2. A

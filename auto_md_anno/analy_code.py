@@ -370,9 +370,22 @@ class AnalyCode(object):
 
     def hash_system(self, dic):
         res = ''
-        for i in dic:
+        list_key = dic.keys()
+        if 'file' in list_key:
+            dic_data = dic['file']
+            judge = 0
+        elif 'dir' in list_key:
+            dic_data = dic['dir']
+            judge = 1
+        else:
+            dic_data = {'files': dic['files'], 'dirs': dic['dirs']}
+            judge = 2
+        for i in dic_data:
             try:
-                res += dic[i]['hash_code']
+                if judge:
+                    res += dic_data[i]['hash_code']
+                else:
+                    res += dic_data[i]['hash_code'][0]
             except:
                 pass
         res = hashlib.sha1(res.encode('utf8'))
@@ -381,7 +394,7 @@ class AnalyCode(object):
 
 if __name__ == '__main__':
     ana = AnalyCode()
-    dic_res = ana.run('auto_anno')
+    dic_res = ana.run('test_dir')
     print(dic_res)
     pickle.dump(dic_res, open('db', 'wb'))
     print('Done')
