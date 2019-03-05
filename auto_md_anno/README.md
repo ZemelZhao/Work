@@ -1,78 +1,97 @@
 # Version 0.0.0
 软件说明: 
 
+- 希望能够搭建一个方便的文档书写框架 其中适应两级文件的python软件的文档
 
+- 可以给出包含的文件、文件夹
+- 各级文件下包含的类、类内函数和全局函数
+- 可以通过检查哈希值判断类内函数等是否修改、新增或被删除
+- 待改进部分：
+  - 多分支版本控制
+  - 文档未修改部分能够照抄上一版本文档
+  - 需要重新修改代码 需使用正则表达式
+  - 增加图形界面
+  - 生成为可执行文件
+  - 是否需要显示所占行数
+  - 修改bug
+    - 所有的数据均在内存上 之后可以优化到硬盘上 多次读写
+    - 改变文件、文件夹名称 不会引起哈希值变化
 
 本文档将按照各文件、文件夹顺序逐一叙述
 __文件__
+
 |No.|FileName|ClassNum|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|[analy\_code.py](#1. analy\_code.py)|1|0||
-|2|[auto\_anno.py](#2. auto\_anno.py)|0|0||
-|3|[check\_code.py](#3. check\_code.py)|1|0||
-|4|[hash\_std.py](#4. hash\_std.py)|1|0||
-|5|[ver\_control.py](#5. ver\_control.py)|1|0||
-|6|[write\_document.py](#6. write\_document.py)|2|0||
+|1|[analy\_code.py](#1. analy\_code.py)|1|0|分析代码|
+|2|[auto\_anno.py](#2. auto\_anno.py)|0|0|入口程序|
+|3|[check\_code.py](#3. check\_code.py)|1|0|检查各版本的变更|
+|4|[hash\_std.py](#4. hash\_std.py)|1|0|定义产生哈希值的哈希函数|
+|5|[ver\_control.py](#5. ver\_control.py)|1|0|版本控制 现在仅支持单线升级|
+|6|[write\_document.py](#6. write\_document.py)|2|0|生成文档及升级日志|
 __文件夹__
 ## 1. analy\_code.py
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|[AnalyCode](#1. AnalyCode)||15||
+|1|[AnalyCode](#1. AnalyCode)||15|分析代码类|
 ### 1. AnalyCode
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|\_\_init\_\_|0|False|0||
-|2|[filter\_doc\_useless\_line](#2. filter\_doc\_useless\_line)|1|True|0||
-|3|[filter\_multiline\_anno](#3. filter\_multiline\_anno)|1|True|0||
-|4|[filter\_oneline\_anno](#4. filter\_oneline\_anno)|1|True|0||
-|5|[filter\_redun\_space](#5. filter\_redun\_space)|1|True|0||
-|6|[find\_all\_element\_uncross](#6. find\_all\_element\_uncross)|2|True|0||
-|7|[fix\_nonstandard\_line\_head](#7. fix\_nonstandard\_line\_head)|1|True|0||
-|8|[get\_prog\_file\_system](#8. get\_prog\_file\_system)|0|True|0||
-|9|[hash\_list](#9. hash\_list)|1|True|0||
-|10|[hash\_system](#10. hash\_system)|1|True|0||
-|11|[read\_class](#11. read\_class)|1|True|0||
-|12|[read\_doc](#12. read\_doc)|1|True|0||
-|13|[read\_files](#13. read\_files)|2|True|0||
-|14|[read\_func](#14. read\_func)|1|True|0||
-|15|[run](#15. run)|1|True|0||
+|1|\_\_init\_\_|0|False|0|类初始化|
+|2|[filter\_doc\_useless\_line](#2. filter\_doc\_useless\_line)|1|True|0|去除多余行|
+|3|[filter\_multiline\_anno](#3. filter\_multiline\_anno)|1|True|0|去除多行注释|
+|4|[filter\_oneline\_anno](#4. filter\_oneline\_anno)|1|True|0|去除单行注释|
+|5|[filter\_redun\_space](#5. filter\_redun\_space)|1|True|0|去除每行多余空格和制表符|
+|6|[find\_all\_element\_uncross](#6. find\_all\_element\_uncross)|2|True|0|计数字符串中有多少个指定字符|
+|7|[fix\_nonstandard\_line\_head](#7. fix\_nonstandard\_line\_head)|1|True|0|去除每行头部的制表符 改为空格|
+|8|[get\_prog\_file\_system](#8. get\_prog\_file\_system)|0|True|0|索引完整目标软件文件系统|
+|9|[hash\_list](#9. hash\_list)|1|True|0|对某个列表进行指定哈希计算|
+|10|[hash\_system](#10. hash\_system)|1|True|0|对某个字典进行指定哈希计算|
+|11|[read\_class](#11. read\_class)|1|True|0|完成类索引字典|
+|12|[read\_doc](#12. read\_doc)|1|True|0|完成文档索引字典|
+|13|[read\_files](#13. read\_files)|2|True|0|完成文件夹索引字典|
+|14|[read\_func](#14. read\_func)|1|True|0|完成函数索引字典|
+|15|[run](#15. run)|1|True|0|运行类|
 #### 2. filter\_doc\_useless\_line
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|cache\_code\_data|||
+|1|cache\_code\_data|list(str)|列表中所有元素都是字符串|
 __传出参数__
+
 #### 3. filter\_multiline\_anno
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|data\_code\_temp|||
+|1|data\_code\_temp|list(str)||
 __传出参数__
 #### 4. filter\_oneline\_anno
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|data\_code\_temp|||
+|1|data\_code\_temp|list(str)||
 __传出参数__
 #### 5. filter\_redun\_space
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|data\_code\_temp|||
+|1|data\_code\_temp|list(str)||
 __传出参数__
 #### 6. find\_all\_element\_uncross
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|cache|||
-|2|data|||
+|1|cache|str|需要索引的字符串|
+|2|data|str|需要计数的字符串|
 __传出参数__
+
+传出的字符串的个数是不交叉的统计 如 ”######“ 中有2个 ”###“， 而不是4个
+
 #### 7. fix\_nonstandard\_line\_head
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|data\_code\_temp|||
+|1|data\_code\_temp|list(str)||
 __传出参数__
 #### 8. get\_prog\_file\_system
 __传出参数__
@@ -80,161 +99,181 @@ __传出参数__
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|cache|||
+|1|cache|list(str)||
 __传出参数__
 #### 10. hash\_system
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|dic|||
+|1|dic|dict|必须是文档索引字典以上的字典|
 __传出参数__
 #### 11. read\_class
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|data|||
+|1|data|list(str)||
 __传出参数__
 #### 12. read\_doc
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|address|||
+|1|address|str|文档地址|
 __传出参数__
 #### 13. read\_files
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|list\_file|||
-|2|dir\_name|||
+|1|list\_file|list(str)|多个文档列表|
+|2|dir\_name|str|文档所在文件夹|
 __传出参数__
 #### 14. read\_func
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|data|||
+|1|data|list(str)||
 __传出参数__
 #### 15. run
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|address|||
+|1|address|str|总体软件地址|
 __传出参数__
 ## 2. auto\_anno.py
+
+总体入口 需要创建文件和隐藏文件夹 未来图形界面就在这个文件夹上执行
+
 ## 3. check\_code.py
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|[CodeCheck](#1. CodeCheck)|object|8||
+|1|[CodeCheck](#1. CodeCheck)|object|8|检查程序是否改动|
 ### 1. CodeCheck
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|\_\_init\_\_|0|False|0||
-|2|[check\_all](#2. check\_all)|2|True|0||
-|3|[check\_class](#3. check\_class)|2|True|0||
-|4|[check\_dirs](#4. check\_dirs)|2|True|0||
-|5|[check\_file](#5. check\_file)|2|True|0||
-|6|[check\_files](#6. check\_files)|2|True|0||
-|7|create\_special\_hash\_code|0|False|0||
-|8|[run](#8. run)|2|True|0||
+|1|\_\_init\_\_|0|False|0|类初始化|
+|2|[check\_all](#2. check\_all)|2|True|0|检查总体软件|
+|3|[check\_class](#3. check\_class)|2|True|0|检查单个类|
+|4|[check\_dirs](#4. check\_dirs)|2|True|0|检查各个文件夹|
+|5|[check\_file](#5. check\_file)|2|True|0|检查单个文件|
+|6|[check\_files](#6. check\_files)|2|True|0|检查一级文件夹|
+|7|create\_special\_hash\_code|0|False|0|创建一些奇特的哈希值|
+|8|[run](#8. run)|2|True|0|运行类|
 #### 2. check\_all
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|dic\_new|||
-|2|dic\_old|||
+|1|dic\_new|dict|新版本索引字典|
+|2|dic\_old|dict|旧版本索引字典|
 __传出参数__
 #### 3. check\_class
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|dic\_new|||
-|2|dic\_old|||
+|1|dic\_new|dict||
+|2|dic\_old|dict||
 __传出参数__
 #### 4. check\_dirs
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|dic\_new|||
-|2|dic\_old|||
+|1|dic\_new|dict||
+|2|dic\_old|dict||
 __传出参数__
 #### 5. check\_file
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|dic\_new|||
-|2|dic\_old|||
+|1|dic\_new|dict||
+|2|dic\_old|dict||
 __传出参数__
 #### 6. check\_files
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|dic\_new|||
-|2|dic\_old|||
+|1|dic\_new|dict||
+|2|dic\_old|dict||
 __传出参数__
 #### 8. run
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|dic\_new|||
-|2|dic\_old|||
+|1|dic\_new|dict||
+|2|dic\_old|dict||
 __传出参数__
+
+返回改变地方的索引字典
+
 ## 4. hash\_std.py
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|[HashStd](#1. HashStd)|object|2||
+|1|[HashStd](#1. HashStd)|object|2|调整软件使用的哈希算法|
 ### 1. HashStd
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|[\_\_init\_\_](#1. \_\_init\_\_)|1|False|0||
-|2|[hash](#2. hash)|1|True|0||
+|1|[\_\_init\_\_](#1. \_\_init\_\_)|1|False|0|类初始化 调整哈希算法|
+|2|[hash](#2. hash)|1|True|0|对字符串等hashable的变量进行哈希计算|
 #### 1. \_\_init\_\_
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|htype|||
+|1|htype|int|默认为1|
+|  0   |  1   |   2    |   3    |   4    |   5    |
+| :--: | :--: | :----: | :----: | :----: | :----: |
+| md5  | sha1 | sha224 | sha256 | sha384 | sha512 |
+
 #### 2. hash
+
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|data|||
+|1|data||任何可哈希变量|
 __传出参数__
+
+传出为哈希值的16进制显示字符串
+
 ## 5. ver\_control.py
+
+版本控制几乎没有开始 仅支持单线版本控制
+
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|[VerControl](#1. VerControl)|object|3||
+|1|[VerControl](#1. VerControl)|object|3|版本控制类|
 ### 1. VerControl
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|[get\_lastest\_version](#1. get\_lastest\_version)|1|True|0||
-|2|[get\_new\_version](#2. get\_new\_version)|2|True|0||
-|3|[run](#3. run)|1|True|0||
+|1|[get\_lastest\_version](#1. get\_lastest\_version)|1|True|0|获取之前最新版本|
+|2|[get\_new\_version](#2. get\_new\_version)|2|True|0|获取更新版本|
+|3|[run](#3. run)|1|True|0|运行类|
 #### 1. get\_lastest\_version
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|cache\_list|||
+|1|cache\_list|list(str)|os.listdir()得到的值|
 __传出参数__
 #### 2. get\_new\_version
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|cache\_list|||
-|2|ltype|||
+|1|cache\_list|list(int, int, int)|三个版本数|
+|2|ltype|int|选择是小版本更新 还是大版本更新|
 __传出参数__
+
+返回最新的版本号 ‘x.x.x’
+
 #### 3. run
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
-|1|cache\_list|||
+|1|cache\_list|list(int, int)||
 __传出参数__
 ## 6. write\_document.py
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|[WriteDocument](#1. WriteDocument)|object|18||
-|2|[WriteUpdate](#2. WriteUpdate)|object|7||
+|1|[WriteDocument](#1. WriteDocument)|object|18|写文档类|
+|2|[WriteUpdate](#2. WriteUpdate)|object|7|写更新日志类|
 ### 1. WriteDocument
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -332,6 +371,9 @@ __传入参数__
 |2|order|||
 __传出参数__
 #### 12. make\_table\_decorator\_intro
+
+这里是函数修饰器
+
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|

@@ -333,6 +333,7 @@ class WriteUpdate:
         for i in dic_define_class:
             for j in dic_define_class[i]:
                 res_str += str_prefix + '\t%d. %s %s (class)\n' % (order, i[:3].upper(), self.fix_markdown_str(j))
+                order += 1
                 suborder  = 1
                 for k in dic_define_class[i][j]:
                     for l in dic_define_class[i][j][k]:

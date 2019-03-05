@@ -1,4 +1,4 @@
-# Version 0.0.2
+# Version 0.0.0
 软件说明: 
 
 
@@ -203,28 +203,27 @@ __传出参数__
 __类__
 |No.|ClassName|SuperClass|FuncNum|Note|
 |:-:|:-:|:-:|:-:|:-:|
-|1|[VerControl](#1. VerControl)|object|4||
+|1|[VerControl](#1. VerControl)|object|3||
 ### 1. VerControl
 |No.|FuncName|InputNum|OutputBool|DecorNum|Note|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|\_\_init\_\_|0|False|0||
-|2|[get\_lastest\_version](#2. get\_lastest\_version)|1|True|0||
-|3|[get\_new\_version](#3. get\_new\_version)|2|True|0||
-|4|[run](#4. run)|1|True|0||
-#### 2. get\_lastest\_version
+|1|[get\_lastest\_version](#1. get\_lastest\_version)|1|True|0||
+|2|[get\_new\_version](#2. get\_new\_version)|2|True|0||
+|3|[run](#3. run)|1|True|0||
+#### 1. get\_lastest\_version
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
 |1|cache\_list|||
 __传出参数__
-#### 3. get\_new\_version
+#### 2. get\_new\_version
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|
 |1|cache\_list|||
 |2|ltype|||
 __传出参数__
-#### 4. run
+#### 3. run
 __传入参数__
 |No.|InputName|Type|Note|
 |:-:|:-:|:-:|:-:|

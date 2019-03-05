@@ -38,15 +38,15 @@ if __name__ == '__main__':
         pickle.dump(judge_code_check, open(os.path.join(path_name, 'du_%s' % new_version), 'wb'))
         cache_anno = write_anno.run(dic_new, new_version)
         cache_update = write_update.run(judge_code_check, new_version)
-        with open(os.path.join(path_name_record, '%s_%s' % (dir_name, new_version)), 'w') as f:
+        with open(os.path.join(path_name_record, '%s_%s.md' % (dir_name, new_version)), 'w') as f:
             f.write(cache_anno)
-        with open(os.path.join(dir_name, 'Document_temp'), 'w') as f:
+        with open(os.path.join(dir_name, 'README_temp.md'), 'w') as f:
             f.write(cache_anno)
         if new_version == '0.0.0':
-            with open(os.path.join(dir_name, 'UpdateLog'), 'w') as f:
+            with open(os.path.join(dir_name, 'UpdateLog.md'), 'w') as f:
                 f.write(cache_update)
         else:
-            with open(os.path.join(dir_name, 'UpdateLog'), 'a') as f:
+            with open(os.path.join(dir_name, 'UpdateLog.md'), 'a') as f:
                 f.write(cache_update)
     else:
         print('Not Change')

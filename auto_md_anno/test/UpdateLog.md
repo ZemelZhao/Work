@@ -4,7 +4,7 @@
 #### 0.0.0
 更新说明:
 
-重写整个文件 需要
+
 
 文件:
 	1. ADD analy\_code.py
@@ -41,10 +41,9 @@
 			2. ADD hash
 	5. ADD ver\_control.py
 		1. ADD VerControl (class)
-			1. ADD \_\_init\_\_
-			2. ADD get\_lastest\_version
-			3. ADD get\_new\_version
-			4. ADD run
+			1. ADD get\_lastest\_version
+			2. ADD get\_new\_version
+			3. ADD run
 	6. ADD write\_document.py
 		1. ADD WriteDocument (class)
 			1. ADD \_\_init\_\_
@@ -65,7 +64,7 @@
 			16. ADD make\_table\_introduce\_all
 			17. ADD make\_table\_introduce\_file
 			18. ADD run
-		1. ADD WriteUpdate (class)
+		2. ADD WriteUpdate (class)
 			1. ADD \_\_init\_\_
 			2. ADD fix\_markdown\_str
 			3. ADD make\_section\_dirs
@@ -73,22 +72,3 @@
 			5. ADD make\_section\_files
 			6. ADD make\_update\_markdown
 			7. ADD run
-
-#### 0.0.1
-更新说明:
-
-
-
-文件:
-​	1. MOD write\_document.py
-​		1. MOD WriteDocument (class)
-​			1. MOD \_\_init\_\_
-#### 0.0.2
-更新说明:
-
-
-
-文件:
-	1. MOD hash\_std.py
-		1. MOD HashStd (class)
-			1. MOD hash
