@@ -1,6 +1,6 @@
 import os
 import linecache
-import hashlib
+from hash_std import HashStd
 import numpy as np
 import pickle
 import sys
@@ -9,6 +9,7 @@ class AnalyCode(object):
     def __init__(self):
         self.tab_width = 4
         self.cache_data = {}
+        self.hash_std = HashStd()
 
     def get_prog_file_system(self):
         self.cache_dir_system = {'files': [], 'dirs': {}}
@@ -26,7 +27,7 @@ class AnalyCode(object):
                 self.cache_dir_system['files'] = files
             else:
                 dirs = root[len(self.prog_address)+1 :]
-                if dirs == '__pycache__' or dirs[0] != '.':
+                if dirs != '__pycache__' and dirs[0] != '.':
                     self.cache_dir_system['dirs'][dirs] = files
         return self.cache_dir_system
 
@@ -89,6 +90,9 @@ class AnalyCode(object):
         return doc_name, dic_res
 
     def read_class(self, data):
+        for i in data:
+            print(i)
+        print('==================================')
         dic_res = {'hash_code': 0, 'superclass':[], 'func':{}}
         cache_class_code_head = ''
         dic_res['hash_code'] = self.hash_list(data)
@@ -120,7 +124,9 @@ class AnalyCode(object):
                 else:
                     cache_code.append([i, 'execute'])
         data_add = []
+        print(data_code)
         for i in range(len(cache_code)):
+            print(cache_code)
             if i < len(cache_code) - 1:
                 data = data_code[cache_code[i][0]: cache_code[i+1][0]]
             else:
@@ -135,6 +141,9 @@ class AnalyCode(object):
         return class_name, dic_res
 
     def read_func(self, data):
+        for i in data:
+            print(i)
+        print('++++++++++++++')
         dic_res = {'hash_code': 0, 'decorator': [], 'input':[], 'output':0}
         for i in range(len(data)):
             if data[i].strip()[0] == '@':
@@ -173,14 +182,6 @@ class AnalyCode(object):
                 dic_res['output'] = 1
         return func_name, dic_res
 
-    def filter_doc_useless_line(self, cache_code_data):
-        data_code_temp = cache_code_data[:]
-        data_code_temp = self.filter_oneline_anno(data_code_temp)
-        data_code_temp = self.filter_multiline_anno(data_code_temp)
-        data_code_temp = self.fix_nonstandard_line_head(data_code_temp)
-        data_code_res = self.filter_redun_space(data_code_temp)
-        return data_code_res
-
     def read_files(self, list_file, dir_name='.'):
         dic_res = {'hash_code': 0, 'file': {}}
         hash_temp = ''
@@ -191,6 +192,13 @@ class AnalyCode(object):
         dic_res['hash_code'] = self.hash_system(dic_res)
         return dic_res
 
+    def filter_doc_useless_line(self, cache_code_data):
+        data_code_temp = cache_code_data[:]
+        data_code_temp = self.filter_oneline_anno(data_code_temp)
+        data_code_temp = self.filter_multiline_anno(data_code_temp)
+        data_code_temp = self.fix_nonstandard_line_head(data_code_temp)
+        data_code_res = self.filter_redun_space(data_code_temp)
+        return data_code_res
 
     def run(self, address):
         self.address = address
@@ -336,10 +344,11 @@ class AnalyCode(object):
             num_tab = 0
             code_line = data_code_temp[i]
             for j in code_line:
-                if j != '\t':
+                if j != '\t' and j != ' ':
                     break
                 else:
-                    num_tab += 1
+                    if j == '\t':
+                        num_tab += 1
             data_code_temp[i] = num_tab*self.tab_width*' ' + code_line[num_tab:]
         return data_code_temp
 
@@ -366,24 +375,34 @@ class AnalyCode(object):
         res = ''
         for i in cache:
             res += i
-        res =  hashlib.sha1(res.encode('utf8'))
-        return res.hexdigest()
+        return self.hash_std.hash(res)
 
     def hash_system(self, dic):
         res = ''
-        for i in dic:
+        list_key = dic.keys()
+        if 'file' in list_key:
+            dic_data = dic['file']
+            judge = 0
+        elif 'dir' in list_key:
+            dic_data = dic['dir']
+            judge = 1
+        else:
+            dic_data = {'files': dic['files'], 'dirs': dic['dirs']}
+            judge = 2
+        for i in dic_data:
             try:
-                res += dic[i]['hash_code']
+                if judge:
+                    res += dic_data[i]['hash_code']
+                else:
+                    res += dic_data[i]['hash_code'][0]
             except:
                 pass
-        res = hashlib.sha1(res.encode('utf8'))
-        return res.hexdigest()
+        return self.hash_std.hash(res)
 
 
 if __name__ == '__main__':
     ana = AnalyCode()
-    dic_res = ana.run('test_dir')
-    print(dic_res)
+    dic_res = ana.run('test_check')
     pickle.dump(dic_res, open('db', 'wb'))
     print('Done')
 

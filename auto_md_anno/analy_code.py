@@ -1,6 +1,6 @@
 import os
 import linecache
-import hashlib
+from hash_std import HashStd
 import numpy as np
 import pickle
 import sys
@@ -9,6 +9,7 @@ class AnalyCode(object):
     def __init__(self):
         self.tab_width = 4
         self.cache_data = {}
+        self.hash_std = HashStd()
 
     def get_prog_file_system(self):
         self.cache_dir_system = {'files': [], 'dirs': {}}
@@ -26,7 +27,7 @@ class AnalyCode(object):
                 self.cache_dir_system['files'] = files
             else:
                 dirs = root[len(self.prog_address)+1 :]
-                if dirs != '__pycache__' and dirs[0] != '.':
+                if dirs != '__pycache__' and dirs[0] != '.' and ('AutoAnno' not in dirs):
                     self.cache_dir_system['dirs'][dirs] = files
         return self.cache_dir_system
 
@@ -335,10 +336,11 @@ class AnalyCode(object):
             num_tab = 0
             code_line = data_code_temp[i]
             for j in code_line:
-                if j != '\t':
+                if j != '\t' and j != ' ':
                     break
                 else:
-                    num_tab += 1
+                    if j == '\t':
+                        num_tab += 1
             data_code_temp[i] = num_tab*self.tab_width*' ' + code_line[num_tab:]
         return data_code_temp
 
@@ -365,8 +367,7 @@ class AnalyCode(object):
         res = ''
         for i in cache:
             res += i
-        res =  hashlib.sha1(res.encode('utf8'))
-        return res.hexdigest()
+        return self.hash_std.hash(res)
 
     def hash_system(self, dic):
         res = ''
@@ -388,14 +389,12 @@ class AnalyCode(object):
                     res += dic_data[i]['hash_code'][0]
             except:
                 pass
-        res = hashlib.sha1(res.encode('utf8'))
-        return res.hexdigest()
+        return self.hash_std.hash(res)
 
 
 if __name__ == '__main__':
     ana = AnalyCode()
-    dic_res = ana.run('test_dir')
-    print(dic_res)
+    dic_res = ana.run('test')
     pickle.dump(dic_res, open('db', 'wb'))
     print('Done')
 

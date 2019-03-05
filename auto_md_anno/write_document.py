@@ -6,13 +6,11 @@ class WriteDocument:
         pass
 
     def run(self, data, version='0.0.0'):
-        document_file = 'Document_%s_%s.md' % (data['name'], version)
+        document_file = os.path.join(data['name'], 'AutoAnno', 'Document_%s_%s.md' % (data['name'], version))
         self.version = version
         self.markdown_result = ''
         self.make_doc_markdown(data)
-        with open(document_file, 'w') as f:
-            f.write(self.markdown_result)
-
+        return self.markdown_result
 
     def make_table_introduce_all(self, dic):
         judge = False
@@ -264,11 +262,96 @@ class WriteDocument:
             res_str = '[%s](#%d. %s)' % (data, order, data)
         return res_str
 
-
 class WriteUpdate:
     def __init__(self):
         pass
 
+    def run(self, data, version='0.0.0'):
+        self.version = version
+        self.markdown_result = self.make_update_markdown(data)
+        return self.markdown_result
+
+    def make_update_markdown(self, dic):
+        res_str = ''
+        list_version = [int(i) for i in self.version.split('.')]
+        if list_version[2] == 0:
+            if list_version[1] == 0:
+                if list_version[0] == 0:
+                    res_str += '# Update Log\n'
+                res_str += '## %d\n' % (list_version[0])
+            res_str += '### %d.%d\n' % (list_version[0], list_version[1])
+
+        res_str += '#### %s\n' % self.version
+        res_str += '更新说明:\n\n\n\n'
+        judge = 0
+        for i in dic['files']:
+            judge += len(dic['files'][i])
+        if judge:
+            res_str += '文件:\n'
+            res_str += self.make_section_files(dic['files'])
+        judge = 0
+        for i in dic['dirs']:
+            judge += len(dic['dirs'][i])
+        if judge:
+            res_str += '文件夹\n'
+            res_str += self.make_section_dirs(dic['dirs'])
+        return res_str
+
+    def make_section_files(self, dic, lv=1):
+        res_str = ''
+        order = 1
+        for i in dic:
+            for j in dic[i]:
+                res_str += self.make_section_file(dic[i][j], j, lv+1, order, i)
+                order += 1
+        return res_str
+
+    def make_section_dirs(self, dic):
+        res_str = ''
+        order = 1
+        for i in dic:
+            for j in dic[i]:
+                res_str += '\t%d. %s %s\n' % (order, i[:3].upper(), j)
+                res_str += self.make_section_files(dic[i][j], 2)
+        return res_str
+
+    def make_section_file(self, dic, name, lv, order, utype):
+        res_str = ''
+        str_prefix = '\t'*(lv-1)
+        dic_define_class = dic['define']['class']
+        dic_define_func = dic['define']['func']
+        res_str += str_prefix + '%d. %s %s\n' % (order, (utype[:3]).upper(),self.fix_markdown_str(name))
+        order = 1
+        if dic['import']:
+            res_str += str_prefix + '\t%s %s' % (dic['import'][:3].upper(), 'Import Section')
+        if dic['execute']:
+            res_str += str_prefix + '\t%s %s' % (dic['execute'][:3].upper(), 'Execute Section')
+        for i in dic_define_func:
+            for j in dic_define_func[i]:
+                res_str += str_prefix + '\t%d. %s %s\n' % (order, i[:3].upper(), self.fix_markdown_str(j))
+                order += 1
+        for i in dic_define_class:
+            for j in dic_define_class[i]:
+                res_str += str_prefix + '\t%d. %s %s (class)\n' % (order, i[:3].upper(), self.fix_markdown_str(j))
+                suborder  = 1
+                for k in dic_define_class[i][j]:
+                    for l in dic_define_class[i][j][k]:
+                        res_str += str_prefix + '\t\t%d. %s %s\n' % (suborder, k[:3].upper(), self.fix_markdown_str(l))
+                        suborder += 1
+
+        return res_str
+
+    def fix_markdown_str(self, data):
+        res_str = ''
+        for i in data:
+            if i == '_':
+                res_str += '\_'
+            else:
+                res_str += i
+        return res_str
+
+
 if  __name__ == '__main__':
-    a = WriteDocument()
-    a.run(pickle.load(open('db', 'rb')))
+    a = WriteUpdate()
+    a.run(pickle.load(open('du', 'rb')))
+
