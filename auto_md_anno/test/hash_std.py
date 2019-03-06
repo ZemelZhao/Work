@@ -7,7 +7,6 @@ class HashStd:
 
     def hash(self, data):
         return self.htype(data.encode('utf8')).hexdigest()
-        pass
 
 if __name__ == '__main__':
     hs = HashStd(1)

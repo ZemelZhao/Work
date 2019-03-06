@@ -1,6 +1,8 @@
 import os
 
 class VerControl:
+    def __init__(self):
+        pass
 
     def run(self, cache_list):
         last_version = self.get_lastest_version(cache_list)

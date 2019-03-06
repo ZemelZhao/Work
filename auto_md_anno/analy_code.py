@@ -36,7 +36,7 @@ class AnalyCode(object):
             data_code_init = f.readlines()
         doc_name = os.path.split(address)[1]
         data_code_fixed = self.filter_doc_useless_line(data_code_init)
-        dic_res = {'hash_code':[0, 0, 0, 0], 'func':{}, 'class':{}}
+        dic_res = {'hash_code':[0, 0, 0, 0], 'line_num': 0, 'func':{}, 'class':{}}
         stat = 0
         cache_import_code = []
         cache_define_code = []
@@ -55,6 +55,7 @@ class AnalyCode(object):
                 cache_define_code.append(i)
             else:
                 cache_execute_code.append(i)
+        dic_res['line_num'] = len(data_code_fixed)
         dic_res['hash_code'][0] = self.hash_list(data_code_fixed)
         dic_res['hash_code'][1] = self.hash_list(cache_import_code)
         dic_res['hash_code'][2] = self.hash_list(cache_define_code)
@@ -90,9 +91,10 @@ class AnalyCode(object):
         return doc_name, dic_res
 
     def read_class(self, data):
-        dic_res = {'hash_code': 0, 'superclass':[], 'func':{}}
+        dic_res = {'hash_code': 0, 'line_num': 0, 'superclass':[], 'func':{}}
         cache_class_code_head = ''
         dic_res['hash_code'] = self.hash_list(data)
+        dic_res['line_num'] = len(data)
         for i in range(len(data)):
             cache_class_code_head += data[i]
             if data[i][-1] == ':':
@@ -136,7 +138,7 @@ class AnalyCode(object):
         return class_name, dic_res
 
     def read_func(self, data):
-        dic_res = {'hash_code': 0, 'decorator': [], 'input':[], 'output':0}
+        dic_res = {'hash_code': 0, 'line_num': 0, 'decorator': [], 'input':[], 'output':0}
         for i in range(len(data)):
             if data[i].strip()[0] == '@':
                 data[i] = data[i].strip()
@@ -149,6 +151,7 @@ class AnalyCode(object):
         data = data[i:]
         cache_func_code_head = ''
         dic_res['hash_code'] = self.hash_list(data)
+        dic_res['line_num'] = len(data)
         for i in data[:]:
             cache_func_code_head += i
             if i[-1] == ':':
@@ -175,12 +178,13 @@ class AnalyCode(object):
         return func_name, dic_res
 
     def read_files(self, list_file, dir_name='.'):
-        dic_res = {'hash_code': 0, 'file': {}}
+        dic_res = {'hash_code': 0, 'line_num':0, 'file': {}}
         hash_temp = ''
         for i in sorted(list_file):
             name_file, dic_file = self.read_doc(os.path.join(self.prog_address, dir_name, i))
             dic_res['file'][name_file] = dic_file
             hash_temp += dic_file['hash_code'][0]
+            dic_res['line_num'] += dic_file['line_num']
         dic_res['hash_code'] = self.hash_system(dic_res)
         return dic_res
 
@@ -196,13 +200,15 @@ class AnalyCode(object):
         self.address = address
         self.prog_address = os.path.join(os.getcwd(), address)
         self.prog_file_system = self.get_prog_file_system()
-        dic_res = {'name': address, 'hash_code': 0, 'files': {'hash_code': 0, 'file': {}}, 'dirs': {'hash_code': 0, 'dir': {}}}
+        dic_res = {'name': address, 'hash_code': 0, 'line_num': 0, 'files': {'hash_code': 0, 'line_num': 0, 'file': {}}, 'dirs': {'hash_code': 0, 'line_num': 0, 'dir': {}}}
         list_file_1_dir = self.prog_file_system['files']
         dic_res['files'] = self.read_files(list_file_1_dir)
         for i in self.prog_file_system['dirs']:
             dic_res['dirs']['dir'][i] = self.read_files(self.prog_file_system['dirs'][i], i)
             dic_res['dirs']['hash_code'] = self.hash_system(dic_res['dirs'])
+            dic_res['dirs']['line_num'] += dic_res['dirs']['dir'][i]['line_num']
         dic_res['hash_code'] = self.hash_system((dic_res))
+        dic_res['line_num'] = dic_res['files']['line_num'] + dic_res['dirs']['line_num']
         return dic_res
 
     def find_all_element_uncross(self, cache, data):
@@ -395,6 +401,7 @@ class AnalyCode(object):
 if __name__ == '__main__':
     ana = AnalyCode()
     dic_res = ana.run('test')
+    print(dic_res)
     pickle.dump(dic_res, open('db', 'wb'))
     print('Done')
 

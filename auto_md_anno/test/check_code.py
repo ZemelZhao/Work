@@ -199,5 +199,3 @@ if __name__ == '__main__':
     dic_new = pickle.load(open(os.path.join(path_name, 'db_%s' % lastest_version), 'rb'))
     code_check = CodeCheck()
     code_check.run(dic_new, dic_old)
-
-
